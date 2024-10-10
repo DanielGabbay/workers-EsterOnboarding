@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
-import { Book } from '../../Book.interface';
-import { Observable } from 'rxjs';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import {Book} from '../../Book.interface';
+import {Observable} from 'rxjs';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
+import {FormsModule, ReactiveFormsModule, FormControl, Validators} from '@angular/forms';
+import {Component, inject, signal, WritableSignal} from '@angular/core';
 
 @Component({
   selector: 'app-book-search',
@@ -18,9 +18,9 @@ export class BookSearchComponent {
   private apiUrl = 'https://openlibrary.org/search.json';
   protected isShow: boolean = false;
   protected isLoading: boolean = false;
-  imgSrc: string | null = null;
+  protected imgSrc: string | null = null;
   /* ------------------------------------------ PROVIDERS / SERVICES ------------------------------------------ */
-   private readonly http=inject(HttpClient);
+  private readonly http = inject(HttpClient);
   /* ------------------------------------------------  Inputs ------------------------------------------------ */
   /* ------------------------------------------------  Outputs ------------------------------------------------ */
 
@@ -39,17 +39,27 @@ export class BookSearchComponent {
     Validators.required,
     Validators.minLength(3),
   ]);
+
   /* ------------------------------------------------  Constructor ------------------------------------------------ */
-  constructor() { }
-  /* ----------------------------------------------- Lifecycle Hooks ----------------------------------------------- */
-  /* ------------------------------------------------  Methods ------------------------------------------------ */
-  searchBooks(queryString: string): Observable<Book> {
-    const queryParams: HttpParams = new HttpParams({
-      fromObject: { q: queryString },
-    });
-    return this.http.get<Book>(this.apiUrl, { params: queryParams });
+  constructor() {
   }
-  onSearchBook() {
+
+  /* ----------------------------------------------- Lifecycle Hooks ----------------------------------------------- */
+
+  /* ------------------------------------------------  Methods ------------------------------------------------ */
+  protected searchBooks(queryString: string): Observable<Book> {
+    const queryParams: HttpParams = new HttpParams({
+      fromObject: {q: queryString},
+    });
+    return this.http.get<Book>(this.apiUrl, {params: queryParams});
+  }
+
+  /**
+   * @description
+   * @algorithm
+   * @protected
+   */
+  protected onSearchBook() {
     this.isLoading = true;
     if (this.bookName.valid) {
       const searchTerm = this.bookName.value || '';
@@ -62,8 +72,8 @@ export class BookSearchComponent {
             this.book().docs.length > 0 &&
             this.book().docs[0].cover_i
           ) {
-            this.imgSrc =`https://covers.openlibrary.org/a/olid/OL${this.book().docs[0].cover_i}A-S.jpg`;
-            //"https://covers.openlibrary.org/a/olid/OL23919A-M.jpg"
+
+            this.imgSrc = `https://covers.openlibrary.org/a/olid/${this.book().docs[0].cover_i}-S.jpg`;
 
 
           } else {
@@ -80,7 +90,8 @@ export class BookSearchComponent {
       });
     }
   }
-  goBack() {
+
+  protected goBack() {
     this.isShow = false;
     this.isLoading = false;
   }

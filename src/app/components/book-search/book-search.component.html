@@ -1,141 +1,153 @@
-<div class="h-screen flex flex-col">
+<div class="outer">
   <div class="flex-1 bg-gray-900 flex flex-col justify-between lg:py-24">
-    @if(!isShow){
-    <div class="relative isolate overflow-hidden bg-gray-900 py-8 sm:py-16 lg:py-16">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 ">
-          <div class="max-w-xl lg:max-w-lg">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Wellcome our library.
-            </h2>
-            <p class="mt-4 text-lg leading-8 text-gray-300">
-              Here you can get information about any book you want.
-            </p>
-            <div class="mt-6 flex max-w-md gap-x-4">
-              <label for="name" class="sr-only">Book name</label>
-              <input [formControl]="bookName" id="book-name" name="name" type="string" required
-                class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                placeholder="Enter the book name" (keydown.enter)="onSearchBook()" />
-              <button type="submit" (click)="onSearchBook()" [disabled]="bookName.invalid"
-                class="button flex-none rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                Search
-              </button>
+    @if (!isShow) {
+      <div class="relative isolate overflow-hidden bg-gray-900 py-8 sm:py-16 lg:py-16">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2 ">
+            <div class="max-w-xl lg:max-w-lg">
+              <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Wellcome our library.
+              </h2>
+              <p class="mt-4 text-lg leading-8 text-gray-300">
+                Here you can get information about any book you want.
+              </p>
+              <div class="mt-6 flex max-w-md gap-x-4">
+                <label for="name" class="sr-only">Book name</label>
+                <input [formControl]="bookName" id="book-name" name="name" type="string" required
+                       class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                       placeholder="Enter the book name" (keydown.enter)="onSearchBook()"/>
+                <button type="submit" (click)="onSearchBook()" [disabled]="bookName.invalid"
+                        class="button flex-none rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                  Search
+                </button>
+              </div>
+              @if (bookName.invalid && (bookName.dirty || bookName.touched)) {
+                <div class="text-red-500">
+                  @if (bookName.errors?.['required']) {
+                    Book name is required
+                  }
+                  @if (bookName.errors?.['minlength']) {
+                    Book name must be at least 3
+                      characters long.
+                  }
+                </div>
+              }
             </div>
-            @if(bookName.invalid && (bookName.dirty ||bookName.touched) ) {
-            <div class="text-red-500">
-              @if(bookName.errors?.['required']) { Book name is required }
-              @if(bookName.errors?.['minlength']) { Book name must be at least 3
-              characters long. }
-            </div>
-            }
+            <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
+              <div class="flex flex-col items-start">
+                <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                       stroke="currentColor"
+                       aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z"/>
+                  </svg>
+                </div>
+                <dt class="mt-4 font-semibold text-white">A world of knowledge</dt>
+                <dd class="mt-2 leading-7 text-gray-400">
+                  Discover a world of knowledge, one book at a time.
+                  Whether you're looking for classic literature or the latest bestsellers,
+                  our library has something for everyone.
+                </dd>
+              </div>
+              <div class="flex flex-col items-start">
+                <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                       stroke="currentColor"
+                       aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002"/>
+                  </svg>
+                </div>
+                <dt class="mt-4 font-semibold text-white">No spam</dt>
+                <dd class="mt-2 leading-7 text-gray-400">
+                  Our promise:
+                  no distractions,
+                  just a world of books waiting to be discovered.
+                </dd>
+              </div>
+            </dl>
           </div>
-          <dl class="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
-            <div class="flex flex-col items-start">
-              <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                  aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
-                </svg>
-              </div>
-              <dt class="mt-4 font-semibold text-white">A world of knowledge</dt>
-              <dd class="mt-2 leading-7 text-gray-400">
-                Discover a world of knowledge, one book at a time.
-                Whether you're looking for classic literature or the latest bestsellers,
-                our library has something for everyone.
-              </dd>
-            </div>
-            <div class="flex flex-col items-start">
-              <div class="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                  aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M10.05 4.575a1.575 1.575 0 10-3.15 0v3m3.15-3v-1.5a1.575 1.575 0 013.15 0v1.5m-3.15 0l.075 5.925m3.075.75V4.575m0 0a1.575 1.575 0 013.15 0V15M6.9 7.575a1.575 1.575 0 10-3.15 0v8.175a6.75 6.75 0 006.75 6.75h2.018a5.25 5.25 0 003.712-1.538l1.732-1.732a5.25 5.25 0 001.538-3.712l.003-2.024a.668.668 0 01.198-.471 1.575 1.575 0 10-2.228-2.228 3.818 3.818 0 00-1.12 2.687M6.9 7.575V12m6.27 4.318A4.49 4.49 0 0116.35 15m.002 0h-.002" />
-                </svg>
-              </div>
-              <dt class="mt-4 font-semibold text-white">No spam</dt>
-              <dd class="mt-2 leading-7 text-gray-400">
-                Our promise:
-                no distractions,
-                just a world of books waiting to be discovered.
-              </dd>
-            </div>
-          </dl>
         </div>
-      </div>
-      <div class="absolute left-1/2 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">
-        <div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30" style="
+        <div class="absolute left-1/2 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6" aria-hidden="true">
+          <div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30" style="
             clip-path: polygon(74.1% 44.1%,100% 61.6%,97.5% 26.9%,85.5% 0.1%,80.7% 2%,72.5% 32.5%,60.2% 62.4%, 52.4% 68.1%,47.5% 58.3%,45.2% 34.5%,27.5% 76.7%,0.1% 64.9%,17.9% 100%,27.6% 76.8%,76.1% 97.7%, 74.1% 44.1%
             );
           "></div>
-      </div>
-    </div>
-
-    @if(isLoading) {
-    <div class="loader">
-      <img src="assets/spin.gif" alt="Loading..." />
-    </div>
-    } } @if(isShow && book().docs.length>0) {
-    <div class="ShowBookDetails flex justify-center">
-      <div class="isolate overflow-hidden bg-gray-900 py-4 sm:py-6 md:py-8 lg:py-12 w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-7xl">
-        <h3 class="title text-center">Book Details:</h3>
-
-        <div class="book-details flex flex-col  lg:justify-between lg:space-x-4 gap-6">
-         <div>
-          <img [src]="imgSrc?imgSrc: 'assets/defaultImage.png'" alt="book cover"             class="mt-4 w-full max-w-sm rounded-lg lg:mr-8" />
-
-         </div>
-          <div class="book-content py-4 text-lg text-gray-300 mt-4 lg:mt-3 ">
-            <p>
-             <span> Title:</span>
-              {{ book().docs[0].title }}
-            </p>
-            <p>
-             <span>Author:</span>
-              {{
-                book().docs[0].author_name
-                }}
-            </p>
-            @if(book().docs[0].language) {
-            <p>
-              <span> Language:</span>
-            {{ book().docs[0].language }}
-            </p>
-            } @if( book().docs[0].type){
-            <p>
-              <span>Type: </span>{{ book().docs[0].type }}
-            </p>
-            } @if(book().docs[0].first_publish_year) {
-            <p>
-              <span>Publishing Year:</span>
-             {{
-                book().docs[0].first_publish_year
-                }}
-            </p>
-            }
-          </div>
         </div>
-        <button (click)="goBack()" class="mt-4 button x-button text-white py-2 px-4 rounded">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
       </div>
-    </div>
+
+      @if (isLoading) {
+        <div class="loader">
+          <img src="assets/spin.gif" alt="Loading..."/>
+        </div>
+      }
     }
-    @else if(isShow) {
-    <div class="isolate overflow-hidden bg-gray-900 py-8 sm:py-12 lg:py-16">
-      <div class="mt-8 flex flex-col items-center">
-        <p class="mt-4"></p>
-        <p class="mt-2 text-4xl text-gray-300 font-semibold">
-          Book not found...
-        </p>
+    @if (isShow && book().docs.length > 0) {
+      <div class="ShowBookDetails flex justify-center">
+        <div
+          class="isolate overflow-hidden bg-gray-900 py-4 sm:py-6 md:py-8 lg:py-12 w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-7xl">
+          <h3 class="title text-center">Book Details:</h3>
+
+          <div class="book-details flex flex-col  lg:justify-between lg:space-x-4 gap-6">
+            <div>
+              <img [src]="imgSrc?imgSrc: 'assets/defaultImage.png'" alt="book cover"
+                   class="mt-4 w-full max-w-sm rounded-lg lg:mr-8"/>
+
+            </div>
+            <div class="book-content py-4 text-lg text-gray-300 mt-4 lg:mt-3 ">
+              <p>
+                <span> Title:</span>
+                {{ book().docs[0].title }}
+              </p>
+              <p>
+                <span>Author:</span>
+                {{
+                  book().docs[0].author_name
+                }}
+              </p>
+              @if (book().docs[0].language) {
+                <p>
+                  <span> Language:</span>
+                  {{ book().docs[0].language }}
+                </p>
+              }
+              @if (book().docs[0].type) {
+                <p>
+                  <span>Type: </span>{{ book().docs[0].type }}
+                </p>
+              }
+              @if (book().docs[0].first_publish_year) {
+                <p>
+                  <span>Publishing Year:</span>
+                  {{
+                    book().docs[0].first_publish_year
+                  }}
+                </p>
+              }
+            </div>
+          </div>
+          <button (click)="goBack()" class="mt-4 button x-button text-white py-2 px-4 rounded">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    } @else if (isShow) {
+      <div class="isolate overflow-hidden bg-gray-900 py-8 sm:py-12 lg:py-16">
+        <div class="mt-8 flex flex-col items-center">
+          <p class="mt-4"></p>
+          <p class="mt-2 text-4xl text-gray-300 font-semibold">
+            Book not found...
+          </p>
           <button (click)="goBack()" class="mt-4 button text-white py-2 px-4 rounded">
             try again
           </button>
-        
+
+        </div>
       </div>
-    </div>
     }
   </div>
 </div>
