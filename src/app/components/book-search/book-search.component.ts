@@ -1,22 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {
-  Component,
-  inject,
-  input,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+
 import { Book } from '../../Book.interface';
 import { Observable } from 'rxjs';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { blob } from 'stream/consumers';
+import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-book-search',
@@ -32,9 +20,8 @@ export class BookSearchComponent {
   protected isLoading: boolean = false;
   imgSrc: string | null = null;
   /* ------------------------------------------ PROVIDERS / SERVICES ------------------------------------------ */
-  //private readonly https=inject(HttpClient);
+   private readonly http=inject(HttpClient);
   /* ------------------------------------------------  Inputs ------------------------------------------------ */
-
   /* ------------------------------------------------  Outputs ------------------------------------------------ */
 
   /* ------------------------------------------------  Signals ------------------------------------------------ */
@@ -53,7 +40,7 @@ export class BookSearchComponent {
     Validators.minLength(3),
   ]);
   /* ------------------------------------------------  Constructor ------------------------------------------------ */
-  constructor(private http: HttpClient) { }
+  constructor() { }
   /* ----------------------------------------------- Lifecycle Hooks ----------------------------------------------- */
   /* ------------------------------------------------  Methods ------------------------------------------------ */
   searchBooks(queryString: string): Observable<Book> {
@@ -75,7 +62,10 @@ export class BookSearchComponent {
             this.book().docs.length > 0 &&
             this.book().docs[0].cover_i
           ) {
-            this.imgSrc = `https://covers.openlibrary.org/a/olid/${this.book().docs[0].cover_i}-s.jpg`;
+            this.imgSrc =`https://covers.openlibrary.org/a/olid/OL${this.book().docs[0].cover_i}A-S.jpg`;
+            //"https://covers.openlibrary.org/a/olid/OL23919A-M.jpg"
+
+
           } else {
             this.imgSrc = 'assets/defaultImage.png';
           }
